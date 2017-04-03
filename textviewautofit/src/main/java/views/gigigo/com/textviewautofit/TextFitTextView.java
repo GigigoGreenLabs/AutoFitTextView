@@ -13,9 +13,9 @@ public class TextFitTextView extends TextView {
   static final String TAG = "TextFitTextView";
   private static final float DEFAULT_MIN_TEXT_SIZE = 8.0f;
   boolean fit = true;
-  boolean mIsAnimEnabled = true;
+  boolean mIsAnimEnabled = false;
   static float textSizeBase = 0.0f;
-  static   float initialTextSizeBase ;
+  static float initialTextSizeBase;
   int mColorText = -1;
   int mColorBackground = -1;
 
@@ -47,14 +47,13 @@ public class TextFitTextView extends TextView {
     str = this.getText().toString();
     this.setText("");
     this.setTextSize(TypedValue.COMPLEX_UNIT_PX, initialTextSizeBase);
-    textSizeBase=initialTextSizeBase;
-    fit=true;
+    textSizeBase = initialTextSizeBase;
+    fit = true;
     this.setText(str);
     this.invalidate();
   }
 
   protected void onDraw(Canvas canvas) {
-
 
     if (mColorText == -1 && !mIsAnimEnabled) {
       mColorText = this.getCurrentTextColor();
@@ -101,7 +100,7 @@ public class TextFitTextView extends TextView {
       //recursive in onDraw
     } else {
       fit = false;
-      mCallback.onShrinkComplete();
+      if (mCallback != null) mCallback.onShrinkComplete();
     }
   }
 }
