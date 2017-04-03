@@ -52,7 +52,17 @@ public class TextFitTextView extends TextView {
     fit = true;
     this.setText(str);
     this.invalidate();
+    System.out.println("reset");
+
   }
+
+  @Override protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    System.out.println("onAttachedToWindow");
+    initialTextSizeBase =this.getTextSize();
+  }
+
+
 
   protected void onDraw(Canvas canvas) {
 
@@ -92,8 +102,8 @@ public class TextFitTextView extends TextView {
     System.out.println("text Size getTextSize-->" + this.getTextSize());
 
     if (textSizeBase == 0.0f) {
-      textSizeBase = this.getTextSize();
-      initialTextSizeBase = textSizeBase;
+      textSizeBase = initialTextSizeBase;// this.getTextSize();
+     // initialTextSizeBase = textSizeBase;
     }
     if (y2 > height && textSizeBase >= getMiminumReadableFontSize()) {
       textSizeBase = textSizeBase - 2f;

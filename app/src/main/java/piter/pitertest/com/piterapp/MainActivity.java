@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
       }
     });
-    autoFit.setAnimation(false);
+    autoFit.setAnimation(true);
+    //autoFit.reset();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
