@@ -56,13 +56,10 @@ public class TextFitTextView extends TextView {
 
   }
 
-  @Override protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    System.out.println("onAttachedToWindow");
+  @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     initialTextSizeBase =this.getTextSize();
   }
-
-
 
   protected void onDraw(Canvas canvas) {
 
