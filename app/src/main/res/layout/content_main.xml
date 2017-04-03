@@ -26,8 +26,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="37sp"
-      android:background="#fff"
+
       android:text="@string/loremfistrumlong"/>
+  <!--android:background="#fff"-->
   <RelativeLayout
       android:id="@+id/lytTelon"
       android:background="#fff"

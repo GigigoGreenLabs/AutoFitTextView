@@ -2,6 +2,7 @@ package views.gigigo.com.textviewautofit;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
@@ -58,7 +59,9 @@ public class TextFitTextView extends TextView {
     if (mColorText == -1 && !mIsAnimEnabled) {
       mColorText = this.getCurrentTextColor();
       ColorDrawable cd = (ColorDrawable) this.getBackground();
-      int colorCode = cd.getColor();
+      int colorCode = Color.TRANSPARENT;
+      if (cd != null) colorCode = cd.getColor();
+
       mColorBackground = colorCode;
     }
     super.onDraw(canvas);
