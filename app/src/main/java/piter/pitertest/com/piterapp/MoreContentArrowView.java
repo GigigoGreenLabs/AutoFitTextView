@@ -27,6 +27,11 @@ public class MoreContentArrowView extends android.support.v7.widget.AppCompatIma
 
   public void Anim()
   {
+
+    ObjectAnimator animator0 = ObjectAnimator.ofFloat(this, "translationY", 120, 0);
+    animator0.setRepeatCount(1);
+    animator0.setDuration(1000);
+
     ObjectAnimator animator1 = ObjectAnimator.ofFloat(this, "translationY", 120, 0);
     animator1.setRepeatCount(-1);
     animator1.setDuration(1000);

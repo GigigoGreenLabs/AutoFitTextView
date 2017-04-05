@@ -5,43 +5,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="piter.pitertest.com.piterapp.MainActivity"
-    android:orientation="vertical"
     tools:showIn="@layout/activity_main">
 
   <!--sample with linear
   <ImageView android:layout_width="match_parent"-->
-      <!--android:layout_height="300dp"-->
-      <!--android:scaleType="fitXY"-->
-      <!--android:src="@drawable/chiquitofull"-->
-       <!--android:visibility="gone"/>-->
+  <!--android:layout_height="300dp"-->
+  <!--android:scaleType="fitXY"-->
+  <!--android:src="@drawable/chiquitofull"-->
+  <!--android:visibility="gone"/>-->
 
   <views.gigigo.com.textviewautofit.TextFitTextView
       android:id="@+id/AutoFitTxt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:text="@string/loremfistrumlong"
       android:textSize="37sp"
-      android:visibility="gone"
 
-      android:text="@string/loremfistrumlong"/>
+      android:visibility="gone"/>
   <!--android:background="#fff"-->
   <RelativeLayout
       android:id="@+id/lytTelon"
-      android:background="#fff"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-  android:visibility="gone"></RelativeLayout>
+      android:background="#fff"
+      android:visibility="gone"></RelativeLayout>
   <!-- android:textSize="184px"-->
-<ImageView android:id="@+id/imgAnim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/combined_shape"
-     android:layout_centerHorizontal="true" android:layout_marginBottom="12dp" android:visibility="gone"/>
+  <ImageView android:id="@+id/imgAnim" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+      android:layout_marginBottom="12dp" android:src="@drawable/combined_shape"
+      android:visibility="gone"/>
   <!--android:textSize="136px"-->
 
   <piter.pitertest.com.piterapp.MoreContentArrowView
-      android:id="@+id/imgAnim2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/combined_shape"
-      android:layout_centerHorizontal="true" android:layout_marginBottom="12dp"/>
+      android:id="@+id/imgAnim2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="250px"
+      android:src="@drawable/combined_shape"
+  />
+
+  <ImageView android:id="@+id/imgAnimList"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_alignEnd="@+id/imgAnim2"
+      android:layout_alignRight="@+id/imgAnim2"
+      android:layout_marginBottom="12dp"
+      android:visibility="visible"/>
+  <!---->
 </RelativeLayout>

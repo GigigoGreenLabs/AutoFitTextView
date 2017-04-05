@@ -2,6 +2,7 @@ package piter.pitertest.com.piterapp;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import views.gigigo.com.textviewautofit.AutoFitCallBack;
 import views.gigigo.com.textviewautofit.TextFitTextView;
@@ -80,12 +82,22 @@ public class MainActivity extends AppCompatActivity {
 
     MoreContentArrowView imgAnim2 = (MoreContentArrowView) findViewById(R.id.imgAnim2);
     imgAnim2.Anim();
-  }
 
+    ImageView imgAnimList = (ImageView) findViewById(R.id.imgAnimList);
+    imgAnimList.setBackgroundResource(R.drawable.more_contain_arrow_anim);
+      gyroAnimation = (AnimationDrawable) imgAnimList.getBackground();
+
+  }
+  AnimationDrawable gyroAnimation;
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
+  }
+
+  @Override public void onWindowFocusChanged(boolean hasFocus) {
+    super.onWindowFocusChanged(hasFocus);
+    gyroAnimation.start();
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
