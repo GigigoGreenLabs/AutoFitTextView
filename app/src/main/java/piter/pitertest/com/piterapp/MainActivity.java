@@ -1,5 +1,7 @@
 package piter.pitertest.com.piterapp;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,9 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import views.gigigo.com.textviewautofit.AutoFitCallBack;
 import views.gigigo.com.textviewautofit.TextFitTextView;
+
+import static piter.pitertest.com.piterapp.R.id.imgAnim;
 
 public class MainActivity extends AppCompatActivity {
   RelativeLayout lytTelon;
@@ -51,6 +56,30 @@ public class MainActivity extends AppCompatActivity {
     });
     autoFit.setAnimation(true);
     //autoFit.reset();
+
+    //ImageView imgAnim= (ImageView) findViewById(R.id.imgAnim);
+    //AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.more_arrow_anim);
+    //set.setTarget(imgAnim);
+    //set.start();
+
+    ObjectAnimator animator1 = ObjectAnimator.ofFloat(imgAnim, "translationY", 120, 0);
+    animator1.setRepeatCount(-1);
+    animator1.setDuration(1000);
+    //animator1.setRepeatMode(ValueAnimator.REVERSE );
+
+    ObjectAnimator animator2 = ObjectAnimator.ofFloat(imgAnim, "alpha", 1f,0f);
+    animator2.setRepeatCount(Animation.INFINITE);
+    animator2.setDuration(1000);
+    //
+
+    // Create an animation set to play multiple animations
+    // Use .before to ensure the first animation finishes before the second starts
+    AnimatorSet sett = new AnimatorSet();
+    sett.play(animator1).with(animator2) ;
+    sett.start();
+
+    MoreContentArrowView imgAnim2 = (MoreContentArrowView) findViewById(R.id.imgAnim2);
+    imgAnim2.Anim();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

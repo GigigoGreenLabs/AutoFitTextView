@@ -26,6 +26,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="37sp"
+      android:visibility="gone"
 
       android:text="@string/loremfistrumlong"/>
   <!--android:background="#fff"-->
@@ -36,6 +37,11 @@
       android:layout_height="match_parent"
   android:visibility="gone"></RelativeLayout>
   <!-- android:textSize="184px"-->
-
+<ImageView android:id="@+id/imgAnim" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/combined_shape"
+     android:layout_centerHorizontal="true" android:layout_marginBottom="12dp" android:visibility="gone"/>
   <!--android:textSize="136px"-->
+
+  <piter.pitertest.com.piterapp.MoreContentArrowView
+      android:id="@+id/imgAnim2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/combined_shape"
+      android:layout_centerHorizontal="true" android:layout_marginBottom="12dp"/>
 </RelativeLayout>
