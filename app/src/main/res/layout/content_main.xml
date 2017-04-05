@@ -51,7 +51,7 @@
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="250px"
       android:src="@drawable/combined_shape"
-  />
+      android:visibility="gone"/>
 
   <ImageView android:id="@+id/imgAnimList"
       android:layout_width="20dp"
@@ -59,6 +59,38 @@
       android:layout_alignEnd="@+id/imgAnim2"
       android:layout_alignRight="@+id/imgAnim2"
       android:layout_marginBottom="12dp"
-      android:visibility="visible"/>
+      android:visibility="gone"/>
+
+
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+       >
+    <ImageView android:id="@+id/img1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/arrowmove60"
+        android:alpha="0"
+    />
+    <ImageView android:id="@+id/img2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/img1"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/arrowmove80"
+        android:alpha="0"/>
+
+    <ImageView android:id="@+id/img3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/img2"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/arrowmove1"/>
+
+  </RelativeLayout >
+
   <!---->
 </RelativeLayout>
