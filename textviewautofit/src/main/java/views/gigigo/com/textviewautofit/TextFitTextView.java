@@ -2,25 +2,25 @@ package views.gigigo.com.textviewautofit;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
 public class TextFitTextView extends AppCompatTextView {
 
   static final String TAG = "TextFitTextView";
   private static final float DEFAULT_MIN_TEXT_SIZE = 8.0f;
+  private static final int DEFAULT_CHARS_PER_LINE = 20;
   boolean fit = true;
   boolean mIsAnimEnabled = false;
   float textSizeBase = 0.0f;
   float initialTextSizeBase;
-  private boolean wrappedText = false;
-
   AutoFitCallBack mCallback;
+  String str;
+  private boolean newLinesWhenWordsAreToLong = false;
+  private boolean shrinkTextWhenWordsIsTooLong = false;
   private float currentAlpha;
 
   public TextFitTextView(Context context) {
@@ -42,8 +42,6 @@ public class TextFitTextView extends AppCompatTextView {
   public void setAnimation(boolean isAnimEnabled) {
     mIsAnimEnabled = isAnimEnabled;
   }
-
-  String str;
 
   public void reset() {
     str = this.getText().toString();
@@ -103,10 +101,17 @@ public class TextFitTextView extends AppCompatTextView {
       System.out.println("text Size-->" + textSizeBase);
       //recursive in onDraw
     } else {
-      if (!wrappedText) {
-        wrappedText = true;
+      if (!newLinesWhenWordsAreToLong) {
+        newLinesWhenWordsAreToLong = true;
         wrapText();
         postInvalidate();
+      } else if (!shrinkTextWhenWordsIsTooLong) {
+
+        if (calculateStringIsTooLongPerLine()) {
+          postInvalidate();
+        } else {
+          shrinkTextWhenWordsIsTooLong = true;
+        }
       } else {
         fit = false;
         if (mCallback != null) mCallback.onShrinkComplete();
@@ -115,28 +120,73 @@ public class TextFitTextView extends AppCompatTextView {
   }
 
   public void wrapText() {
-    int curLine = getLayout().getLineStart(0);
-    int nextLine = getLayout().getLineStart(1);
-    int charsPerLine = nextLine - curLine;
+    int charsPerLine = calculateMaxCharPerLine();
 
     String mQuestion = getText().toString();
 
     String temp = "";
     String sentence = "";
 
-    String[] array = mQuestion.split(" "); // split by space
+    String[] array = mQuestion.split("\\s");
 
-    for (String word : array) {
-
-      // create a temp variable and check if length with new word exceeds textview width.
-      if ((temp.length() + word.length()) < charsPerLine) {
-        temp += " " + word;
+    for (int i = 0; i < array.length; i++) {
+      if (array[i].length() < charsPerLine) {
+        if (i == 0) {
+          temp += array[i];
+        } else {
+          temp += " " + array[i];
+        }
       } else {
         sentence += temp + "\n";
-        temp = word;
+        temp = array[i];
       }
     }
 
     setText(sentence + temp);
+  }
+
+  private boolean calculateStringIsTooLongPerLine() {
+    int charsPerLine = calculateMaxCharPerLine();
+
+    String mQuestion = getText().toString();
+
+    String[] array = mQuestion.split("\\s|\\n");
+
+    for (int i = 0; i < array.length; i++) {
+      if (array[i].length() > charsPerLine) {
+        textSizeBase = textSizeBase - 2f;
+        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeBase);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public int calculateMaxCharPerLine() {
+    Layout layout = getLayout();
+
+    int charsPerLine = DEFAULT_CHARS_PER_LINE;
+
+    if (layout == null) {
+      return charsPerLine;
+    }
+
+    int lineCount = layout.getLineCount();
+
+    if (lineCount <= 1) {
+      return charsPerLine;
+    }
+
+    for (int i = 0; i < lineCount - 1; i++) {
+      int curLine = layout.getLineStart(i);
+      int nextLine = layout.getLineStart(i + 1);
+      int difference = nextLine - curLine;
+
+      if (charsPerLine < difference) {
+        charsPerLine = difference;
+      }
+    }
+
+    return charsPerLine;
   }
 }
