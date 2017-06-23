@@ -10,7 +10,6 @@ import android.util.TypedValue;
 
 public class TextFitTextView extends AppCompatTextView {
 
-  static final String TAG = "TextFitTextView";
   private static final float DEFAULT_MIN_TEXT_SIZE = 8.0f;
   private static final int DEFAULT_CHARS_PER_LINE = 20;
   boolean fit = true;
@@ -66,7 +65,7 @@ public class TextFitTextView extends AppCompatTextView {
     }
     super.onDraw(canvas);
     if (fit) {
-      _shrinkToFit();
+      shrinkToFit();
       if (!fit && !mIsAnimEnabled) {
         this.setAlpha(currentAlpha);
         super.onDraw(canvas);
@@ -80,46 +79,49 @@ public class TextFitTextView extends AppCompatTextView {
     return minTextSize;
   }
 
-  protected void _shrinkToFit() {
-
-    int height = this.getHeight();
-    int lines = this.getLineCount();
-    Rect r = new Rect();
-    // int y1 = this.getLineBounds(0, r);
-    int y2 = this.getLineBounds(lines - 1, r);
-
-    System.out.println("text Size getTextSize-->" + this.getTextSize());
-
-    if (textSizeBase == 0.0f) {
-      textSizeBase = initialTextSizeBase;// this.getTextSize();
-      // initialTextSizeBase = textSizeBase;
-    }
-    if (y2 > height && textSizeBase >= getMiminumReadableFontSize()) {
-      textSizeBase = textSizeBase - 2f;
-
-      this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeBase);
-      System.out.println("text Size-->" + textSizeBase);
-      //recursive in onDraw
+  protected void shrinkToFit() {
+    if (checkHeightTextWithContainer()) {
+      shrinkText();
     } else {
       if (!newLinesWhenWordsAreToLong) {
         newLinesWhenWordsAreToLong = true;
-        wrapText();
+        addBreakLinesWhenWordsIsTooLongPerLine();
         postInvalidate();
       } else if (!shrinkTextWhenWordsIsTooLong) {
-
-        if (calculateStringIsTooLongPerLine()) {
+        if (shrinkTextWhenWordIsTooLongPerLine()) {
           postInvalidate();
         } else {
           shrinkTextWhenWordsIsTooLong = true;
         }
       } else {
         fit = false;
-        if (mCallback != null) mCallback.onShrinkComplete();
+        if (mCallback != null) {
+          mCallback.onShrinkComplete();
+        }
       }
     }
   }
 
-  public void wrapText() {
+  private boolean checkHeightTextWithContainer() {
+    int height = this.getHeight();
+    int lines = this.getLineCount();
+    Rect r = new Rect();
+    int y2 = this.getLineBounds(lines - 1, r);
+
+    System.out.println("text Size getTextSize-->" + this.getTextSize());
+
+    if (textSizeBase == 0.0f) {
+      textSizeBase = initialTextSizeBase;
+    }
+
+    return y2 > height && textSizeBase >= getMiminumReadableFontSize();
+  }
+
+  public void addBreakLinesWhenWordsIsTooLongPerLine() {
+    if (getText() == null) {
+      return;
+    }
+
     int charsPerLine = calculateMaxCharPerLine();
 
     String mQuestion = getText().toString();
@@ -145,7 +147,11 @@ public class TextFitTextView extends AppCompatTextView {
     setText(sentence + temp);
   }
 
-  private boolean calculateStringIsTooLongPerLine() {
+  private boolean shrinkTextWhenWordIsTooLongPerLine() {
+    if (getText() == null) {
+      return false;
+    }
+
     int charsPerLine = calculateMaxCharPerLine();
 
     String mQuestion = getText().toString();
@@ -154,12 +160,17 @@ public class TextFitTextView extends AppCompatTextView {
 
     for (int i = 0; i < array.length; i++) {
       if (array[i].length() > charsPerLine) {
-        textSizeBase = textSizeBase - 2f;
-        this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeBase);
+        shrinkText();
         return true;
       }
     }
     return false;
+  }
+
+  private void shrinkText() {
+    textSizeBase = textSizeBase - 2f;
+    this.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeBase);
+    System.out.println("text Size-->" + textSizeBase);
   }
 
   public int calculateMaxCharPerLine() {
