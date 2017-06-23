@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
       }
     });
-    autoFit.setAnimation(true);
+    autoFit.setAnimation(false);
     //autoFit.reset();
 
     //ImageView imgAnim= (ImageView) findViewById(R.id.imgAnim);

@@ -18,11 +18,10 @@ public class TextFitTextView extends AppCompatTextView {
   boolean mIsAnimEnabled = false;
   float textSizeBase = 0.0f;
   float initialTextSizeBase;
-  int mColorText = -1;
-  int mColorBackground = -1;
   private boolean wrappedText = false;
 
   AutoFitCallBack mCallback;
+  private float currentAlpha;
 
   public TextFitTextView(Context context) {
     super(context);
@@ -63,21 +62,15 @@ public class TextFitTextView extends AppCompatTextView {
   }
 
   protected void onDraw(Canvas canvas) {
-
-    if (mColorText == -1 && !mIsAnimEnabled) {
-      mColorText = this.getCurrentTextColor();
-      ColorDrawable cd = (ColorDrawable) this.getBackground();
-      int colorCode = Color.TRANSPARENT;
-      if (cd != null) colorCode = cd.getColor();
-
-      mColorBackground = colorCode;
+    if (!mIsAnimEnabled && currentAlpha == 0) {
+      currentAlpha = getAlpha();
+      setAlpha(0f);
     }
     super.onDraw(canvas);
     if (fit) {
-      if (!mIsAnimEnabled) this.setTextColor(mColorBackground);
       _shrinkToFit();
       if (!fit && !mIsAnimEnabled) {
-        this.setTextColor(mColorText);
+        this.setAlpha(currentAlpha);
         super.onDraw(canvas);
       }
     }
