@@ -5,11 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-public class TextFitTextView extends TextView {
+public class TextFitTextView extends AppCompatTextView {
 
   static final String TAG = "TextFitTextView";
   private static final float DEFAULT_MIN_TEXT_SIZE = 8.0f;
@@ -19,6 +20,7 @@ public class TextFitTextView extends TextView {
   float initialTextSizeBase;
   int mColorText = -1;
   int mColorBackground = -1;
+  private boolean wrappedText = false;
 
   AutoFitCallBack mCallback;
 
@@ -108,8 +110,40 @@ public class TextFitTextView extends TextView {
       System.out.println("text Size-->" + textSizeBase);
       //recursive in onDraw
     } else {
-      fit = false;
-      if (mCallback != null) mCallback.onShrinkComplete();
+      if (!wrappedText) {
+        wrappedText = true;
+        wrapText();
+        postInvalidate();
+      } else {
+        fit = false;
+        if (mCallback != null) mCallback.onShrinkComplete();
+      }
     }
+  }
+
+  public void wrapText() {
+    int curLine = getLayout().getLineStart(0);
+    int nextLine = getLayout().getLineStart(1);
+    int charsPerLine = nextLine - curLine;
+
+    String mQuestion = getText().toString();
+
+    String temp = "";
+    String sentence = "";
+
+    String[] array = mQuestion.split(" "); // split by space
+
+    for (String word : array) {
+
+      // create a temp variable and check if length with new word exceeds textview width.
+      if ((temp.length() + word.length()) < charsPerLine) {
+        temp += " " + word;
+      } else {
+        sentence += temp + "\n";
+        temp = word;
+      }
+    }
+
+    setText(sentence + temp);
   }
 }

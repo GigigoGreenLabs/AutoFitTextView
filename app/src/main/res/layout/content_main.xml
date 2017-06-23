@@ -12,35 +12,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="piter.pitertest.com.piterapp.MainActivity"
-    tools:showIn="@layout/activity_main">
-
-  <!--sample with linear
-  <ImageView android:layout_width="match_parent"-->
-  <!--android:layout_height="300dp"-->
-  <!--android:scaleType="fitXY"-->
-  <!--android:src="@drawable/chiquitofull"-->
-  <!--android:visibility="gone"/>-->
+    tools:showIn="@layout/activity_main"
+    >
 
   <views.gigigo.com.textviewautofit.TextFitTextView
       android:id="@+id/AutoFitTxt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/loremfistrumlong"
+      android:text="@string/loremfistrumshort"
       android:textSize="37sp"
 
-      android:visibility="gone"/>
+      android:visibility="visible"
+      />
   <!--android:background="#fff"-->
   <RelativeLayout
       android:id="@+id/lytTelon"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="#fff"
-      android:visibility="gone"></RelativeLayout>
+      android:visibility="gone"
+      ></RelativeLayout>
   <!-- android:textSize="184px"-->
-  <ImageView android:id="@+id/imgAnim" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:layout_centerHorizontal="true"
-      android:layout_marginBottom="12dp" android:src="@drawable/combined_shape"
-      android:visibility="gone"/>
+
+  <ImageView
+      android:id="@+id/imgAnim"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="12dp"
+      android:src="@drawable/combined_shape"
+      android:visibility="gone"
+      />
   <!--android:textSize="136px"-->
 
   <piter.pitertest.com.piterapp.MoreContentArrowView
@@ -51,15 +53,18 @@
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="250px"
       android:src="@drawable/combined_shape"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      />
 
-  <ImageView android:id="@+id/imgAnimList"
+  <ImageView
+      android:id="@+id/imgAnimList"
       android:layout_width="20dp"
       android:layout_height="20dp"
       android:layout_alignEnd="@+id/imgAnim2"
       android:layout_alignRight="@+id/imgAnim2"
       android:layout_marginBottom="12dp"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      />
 
 
   <RelativeLayout
@@ -67,30 +72,35 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
-       >
-    <ImageView android:id="@+id/img1"
+      >
+    <ImageView
+        android:id="@+id/img1"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="-4dp"
-        android:src="@drawable/arrowmove60"
         android:alpha="0"
-    />
-    <ImageView android:id="@+id/img2"
+        android:src="@drawable/arrowmove60"
+        />
+    <ImageView
+        android:id="@+id/img2"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_below="@+id/img1"
         android:layout_marginBottom="-4dp"
+        android:alpha="0"
         android:src="@drawable/arrowmove80"
-        android:alpha="0"/>
+        />
 
-    <ImageView android:id="@+id/img3"
+    <ImageView
+        android:id="@+id/img3"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_below="@+id/img2"
         android:layout_marginBottom="-4dp"
-        android:src="@drawable/arrowmove1"/>
+        android:src="@drawable/arrowmove1"
+        />
 
-  </RelativeLayout >
+  </RelativeLayout>
 
   <!---->
 </RelativeLayout>
